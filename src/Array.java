@@ -154,6 +154,16 @@ public class Array<E> {
         }
     }
 
+    //实现数组的扩容操作
+
+    private void resize(int newCapacity) {
+        E[] newData = (E[]) new Object[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newData[i] = data[i];
+        }
+        data = newData;
+    }
+
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
@@ -167,14 +177,5 @@ public class Array<E> {
         }
         res.append(']');
         return  res.toString();
-    }
-
-    //实现数组的扩容操作
-    private void resize(int newCapacity) {
-        E[] newData = (E[]) new Object[newCapacity];
-        for (int i = 0; i < size; i++) {
-            newData[i] = data[i];
-        }
-        data = newData;
     }
 }
