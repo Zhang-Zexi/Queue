@@ -12,4 +12,6 @@ public interface Queue<E> {
     void enQueue(E e);
     E deQueue();
     E getFront();
+
+    E deQueue(E e);
 }
