@@ -23,6 +23,11 @@ public class LinkedListQueue<E> implements Queue<E> {
         public Node() {
             this(null, null);
         }
+
+        @Override
+        public String toString() {
+            return e.toString();
+        }
     }
 
     private Node head, tail ;
@@ -60,11 +65,13 @@ public class LinkedListQueue<E> implements Queue<E> {
     @Override
     public E deQueue() {
         if(isEmpty()) {
-            throw new IllegalArgumentException("Can not Null!")
+            throw new IllegalArgumentException("Can not Null!");
         }
         Node retNode = head;
         head = head.next;
-        retNode = null;
+        //这边需要注意，当head变成head.next 那么原来的head的指向就要变为空，而不是head变为null
+        //head的指向：retNode.next
+        retNode.next = null;
         if(head == null) {
             tail = null;
         }
@@ -74,6 +81,39 @@ public class LinkedListQueue<E> implements Queue<E> {
 
     @Override
     public E getFront() {
-        return null;
+        if(isEmpty()) {
+            throw new IllegalArgumentException("I can not get it");
+        }
+        return head.e;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        res.append("Queue: front");
+
+        Node cur = head;
+        while(cur != null) {
+            res.append(cur + "->");
+            cur = cur.next;
+        }
+        res.append("NULL tail");
+        return res.toString();
+    }
+
+
+    public static void main(String[] args) {
+
+        LinkedListQueue<Integer> queue = new LinkedListQueue<>();
+
+        for(int i = 0; i < 10; i++) {
+            queue.enQueue(i);
+
+            if (i / 3 == 2) {
+                queue.deQueue();
+            }
+            System.out.println(queue);
+        }
+    }
+
 }
